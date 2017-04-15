@@ -8,8 +8,7 @@ function Login(){
             password: document.getElementById("password").value
         }
     };
-    console.log(opts.basicAuth.username);
-    console.log(opts.basicAuth.password);
+
     var storj = new Storj(opts);
 
     // Create a new keypair
@@ -28,7 +27,7 @@ function Login(){
     key: privateKey
     }
 
-    storj = new Storj(opts)
+    var storj = new Storj(opts);
 
     // Create a bucket
     storj.createBucket("My New Bucket", function (error, meta){
