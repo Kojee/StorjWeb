@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="col-md-4"></div>
                 <div class="col-md-4">
-                    <form id="login_form_1" name="login_form">
+                    <form id="login_form_1" name="login_form_basic">
                         <div class="form-group">
                         <label> Username: </label>
                         <input type="text" name="username" id="username" class="form-control" placeholder="Username">
@@ -24,9 +24,17 @@
                         </div>
                         <input type="button" id="submit"class="btn btn-primary" value="Login" onclick="Login()">
                     </form>
+                    <form id="login_form_2" name="login_form_key">
+                        <div class="form-group">
+                        <label> Private Key: </label>
+                        <input type="text" name="privateKey" id="privateKey" class="form-control" placeholder="Private Key">
+                        </div>
+                        <input type="button" id="submit"class="btn btn-primary" value="Login" onclick="LoginK()">
+                    </form>
+                    <p>Private key: <span class="label label-info" id="privateKeyLabel"></span>
                 </div>
                 <div class="col-md-4"></div>
-            
+                
             </div>
         </div>
     </body>
