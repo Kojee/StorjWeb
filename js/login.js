@@ -38,19 +38,3 @@ function Login(){
     console.log("name:", meta.name)
     });
 }
-
-function LoginK(){
-    var keyOptions = {
-        key: document.getElementById("privateKey").value
-    };
-
-    var storjK = new Storj(keyOptions);
-    
-    storjK.createBucket("My New Bucket", function (error, meta){
-        if (error) {
-            return console.log(error)
-        }
-        console.log("id:", meta.id)
-        console.log("name:", meta.name)
-        });
-}
