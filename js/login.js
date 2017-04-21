@@ -1,7 +1,4 @@
 function Login(){
-
-    var storj = new Storj()
-
     var opts = {
         basicAuth: {
             email: document.getElementById("username").value,
@@ -28,13 +25,8 @@ function Login(){
     }
 
     var storj = new Storj(opts);
-
-    // Create a bucket
-    storj.createBucket("My New Bucket", function (error, meta){
-    if (error) {
-        return console.log(error)
-    }
-    console.log("id:", meta.id)
-    console.log("name:", meta.name)
-    });
+    localStorage.setItem("storjPrv", JSON.stringify(privateKey));
+    var retrievedObject = localStorage.getItem('storjPrv');
+    console.log(retrievedObject);
+    window.location.replace("logged.html");
 }
