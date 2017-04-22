@@ -10,18 +10,20 @@ function Login(){
 
     // Create a new keypair
     var keypair = storj.generateKeyPair();
-    var privateKey = keypair.getPrivateKey();
     var publicKey = keypair.getPublicKey();
-    document.getElementById("privateKeyLabel").innerHTML = privateKey;
     // Register the public key to your account
+    storj.getKeyList(function cb(e, keys) {
+        console.log(keys);
+        var index;
+        for(index = 0; index < keys.length; index++){
+            storj.removeKey(kyes[index], function cb(e) {});
+        }
+    })
     storj.registerKey(publicKey, function (error) {
     if(error) {
         return console.log(error)
     }});
-    storj.getKeyList(function cb(e, keys) {
-        console.log(keys);
-        var index;
-    })
+    
     
     localStorage.setItem("email", opts.basicAuth.email);
     localStorage.setItem("password", opts.basicAuth.password);
