@@ -7,32 +7,38 @@
         <script src="js/storj.es6.js"></script>
         <script src="js/upload.js"></script>
         <script src="js/utility.js"></script>
-        <link rel="stylesheet" type="text/css" href="css/custom.css">
+        <script src="js/download.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <link rel="stylesheet" type="text/css" href="css/custom.css">
     </head>
     <body>
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-md-4"></div>
                 <div id="centerCol" class="col-md-4">
                     <script>
                         var storj = getStorj();
-                        var ul = document.createElement("ul");
-                        ul.setAttribute("class", "list-group");
+                        var div = document.createElement("div");
+                        div.setAttribute("class", "btn-group-vertical");
+                        div.setAttribute("role","group");
+                        div.setAttribute("aria-label","...");
+
                         bucketId = findGetParameter("id");
+
                         storj.getFileList(bucketId, function cb(e, files) {
                             var index;
                             for(index = 0; index < files.length; index++){
-                                var a = document.createElement("a");
-                                var li = document.createElement("li");
-                                var t = document.createTextNode(files[index].filename);
-                                li.setAttribute("class", "list-group-item");
-                                li.appendChild(t);
-                                a.setAttribute("href", "file.html?id=" + files[index].id);
-                                a.appendChild(li);
-                                ul.appendChild(a);
+                                var downButton = document.createElement("button");
+                                var fileName = document.createTextNode(files[index].filename);
+
+                                downButton.setAttribute("class", "btn btn-default down-btn");
+                                downButton.setAttribute("type", "button");
+                                downButton.setAttribute("onclick", "download(bucketId, '" + files[index].id + "')");
+                                downButton.appendChild(fileName);
+
+                                div.appendChild(downButton);
                             }
-                            console.log(files);
+
                             var upLabel = document.createElement("label");
                             upLabel.setAttribute("class", "btn btn-default btn-file");
                             var upInput = document.createElement("input");
@@ -41,15 +47,16 @@
                             upInput.setAttribute("id", "input");
                             upInput.style.display = "none";
                             var upText = document.createTextNode("Upload file");
-                            var li = document.createElement("li");
-                            li.setAttribute("class", "list-group-item");
+                            
                             upLabel.appendChild(upText);
                             upLabel.appendChild(upInput);
-                            li.appendChild(upLabel);
-                            ul.appendChild(li);
+                            div.appendChild(upLabel);
+                            document.getElementById("centerCol").appendChild(div);
+
                         })
 
-                        document.getElementById("centerCol").appendChild(ul);
+                        
+                        
                         
                     </script>
                 </div>
