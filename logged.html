@@ -12,8 +12,31 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4"></div>
-                <div class="col-md-4">
-                    <input type="file" id="input" onchange="upload()">
+                <div id="centerCol" class="col-md-4">
+                    <script>
+                        var storj = getStorj();
+                        var ul = document.createElement("ul");
+                        ul.setAttribute("class", "list-group");
+                        storj.getBucketList(function cb(e, buckets) {
+                            var index;
+                            for(index = 0; index < buckets.length; index++){
+                                var a = document.createElement("a");
+                                var li = document.createElement("li");
+                                var t = document.createTextNode(buckets[index].name);
+                                li.setAttribute("class", "list-group-item");
+                                li.appendChild(t);
+                                a.setAttribute("href", "bucket.html?id=" + buckets[index].id);
+                                a.appendChild(li);
+                                ul.appendChild(a);
+                            }
+                        });
+
+                        document.getElementById("centerCol").appendChild(ul);
+                        
+                        
+                        
+                        
+                    </script>
                 </div>
                 <div class="col-md-4"></div>
                 

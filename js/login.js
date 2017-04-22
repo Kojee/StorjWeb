@@ -25,5 +25,5 @@ function Login(){
     
     localStorage.setItem("email", opts.basicAuth.email);
     localStorage.setItem("password", opts.basicAuth.password);
-    //window.location.replace("logged.html");
+    window.location.replace("logged.html");
 }
