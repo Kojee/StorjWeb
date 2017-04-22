@@ -18,15 +18,12 @@ function Login(){
     if(error) {
         return console.log(error)
     }});
-
-    // Authenticate with the keypair
-    var opts = {
-    key: privateKey
-    }
-
-    var storj = new Storj(opts);
-    localStorage.setItem("storjPrv", JSON.stringify(privateKey));
-    var retrievedObject = localStorage.getItem('storjPrv');
-    console.log(retrievedObject);
-    window.location.replace("logged.html");
+    storj.getKeyList(function cb(e, keys) {
+        console.log(keys);
+        var index;
+    })
+    
+    localStorage.setItem("email", opts.basicAuth.email);
+    localStorage.setItem("password", opts.basicAuth.password);
+    //window.location.replace("logged.html");
 }
