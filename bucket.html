@@ -8,6 +8,7 @@
         <script src="js/upload.js"></script>
         <script src="js/utility.js"></script>
         <script src="js/download.js"></script>
+        <script src="js/node_modules/file-saver/FileSaver.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         <link rel="stylesheet" type="text/css" href="css/custom.css">
     </head>
@@ -24,18 +25,11 @@
                         div.setAttribute("aria-label","...");
 
                         bucketId = findGetParameter("id");
-
                         storj.getFileList(bucketId, function cb(e, files) {
                             var index;
                             for(index = 0; index < files.length; index++){
                                 var downButton = document.createElement("button");
-                                var fileName = document.createTextNode(files[index].filename);
-
-                                downButton.setAttribute("class", "btn btn-default down-btn");
-                                downButton.setAttribute("type", "button");
-                                downButton.setAttribute("onclick", "download(bucketId, '" + files[index].id + "')");
-                                downButton.appendChild(fileName);
-
+                                downButton.setAttribute("onclick", "download(bucketId, '" + files[index].id +"')" );
                                 div.appendChild(downButton);
                             }
 
@@ -57,7 +51,13 @@
 
                         
                         
-                        
+                        function download(bucketId, fileId){
+                            var file = storj.getFile(bucketId, fileId, function done(){
+                                file.getBlob(function cb(e, blob) {
+                                    saveAs(blob, file.name);
+                                });
+                            });
+                        }
                     </script>
                 </div>
                 <div class="col-md-4"></div>
