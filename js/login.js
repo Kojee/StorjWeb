@@ -3,7 +3,8 @@ function Login(){
         basicAuth: {
             email: document.getElementById("username").value,
             password: document.getElementById("password").value
-        }
+        },
+        encryptionKey : document.getElementById("mnemonic").value
     };
 
     var storj = new Storj(opts);
@@ -27,5 +28,6 @@ function Login(){
     
     localStorage.setItem("email", opts.basicAuth.email);
     localStorage.setItem("password", opts.basicAuth.password);
+    localStorage.setItem("mnemonic", opts.encryptionKey);
     window.location.replace("logged.html");
 }
