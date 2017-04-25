@@ -7,7 +7,6 @@
         <script src="js/storj.es6.js"></script>
         <script src="js/upload.js"></script>
         <script src="js/utility.js"></script>
-        <script src="js/download.js"></script>
         <script src="js/node_modules/file-saver/FileSaver.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         <link rel="stylesheet" type="text/css" href="css/custom.css">
@@ -29,7 +28,11 @@
                             var index;
                             for(index = 0; index < files.length; index++){
                                 var downButton = document.createElement("button");
+                                var fileName = document.createTextNode(files[index].filename);
+                                downButton.setAttribute("type", "button");
+                                downButton.setAttribute("class", "btn btn-default");
                                 downButton.setAttribute("onclick", "download(bucketId, '" + files[index].id +"')" );
+                                downButton.appendChild(fileName);
                                 div.appendChild(downButton);
                             }
 
