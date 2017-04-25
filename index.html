@@ -23,20 +23,51 @@
                         <input type="password" name="password" id="password" class="form-control" placeholder="Password">
                         </div>
                         <div class="form-group">
-                        <label> Chiave mnemonica (12 parole): </label>
+                        <label> Mnemonic key (12 words): </label>
                         <input type="text" name="mnemonic" id="mnemonic" class="form-control" placeholder="Chiave Mnemonica">
                         </div>
                         <div class="form-group">
-                        <label> Non hai ancora una chiave mnemonica? <button type="button" class="btn btn-default" onclick="generateMnemonic()">Generala ora</button>  </label>
+                        <label> First time uploading and downloading on Storj? <button type="button" class="btn btn-default" onclick="generateMnemonic()">Generate a new mnemonic key</button></label>
                         <script>
                             function generateMnemonic(){
                                 var alert = document.createElement("div");
                                 alert.setAttribute("class", "alert alert-success");
                                 alert.setAttribute("role", "alert");
+                                var encryptionKey;
+                                if(typeof localStorage.getItem("mnemonic") !== undefined && localStorage.getItem("mnemonic") !== null){
+                                    encryptionKey = localStorage.getItem("mnemonic");
+                                    var mnemonic = document.createTextNode("Another mnemonic key was found in this device, do you want to load it?");
+                                    var confirmButton = document.createElement("button");
+                                    confirmButton.setAttribute("class", "btn btn-default");
+                                    confirmButton.setAttribute("type","button");
+                                    confirmButton.setAttribute("onclick", "loadMnemonic('" + encryptionKey + "')");
+                                    var denyButton = document.createElement("button");
+                                    denyButton.setAttribute("class", "btn btn-default");
+                                    denyButton.setAttribute("type","button");
+                                    denyButton.setAttribute("onclick", "genMnemonic()");
+                                    var textButton = document.createTextNode("Load");
+                                    var textDenyButton = document.createTextNode("Generate a new one");
+                                    confirmButton.appendChild(textButton);
+                                    denyButton.appendChild(textDenyButton);
+                                    var br = document.createElement("br");
+                                    alert.appendChild(mnemonic);
+                                    alert.appendChild(br);
+                                    alert.appendChild(confirmButton);
+                                    alert.appendChild(denyButton);
+                                }else{
+                                    var mnemonic = document.createTextNode("Your new mnemonic key is: " + Storj.generateEncryptionKey() + ". Save it somewhere, it will be used to upload and download your files.");
+                                    alert.appendChild(mnemonic);
+                                }
                                 
-                                var mnemonic = document.createTextNode("La tua nuova chiave e': " + Storj.generateEncryptionKey() + ". Salvala da qualche parte, servira' per caricare e scaricare i tuoi file");
-                                alert.appendChild(mnemonic);
                                 document.getElementById("login_form_1").appendChild(alert);
+                            }
+
+                            function loadMnemonic(encryptionKey){
+                                document.getElementById("mnemonic").value = encryptionKey;
+                            }
+
+                            function genMnemonic(){
+                                document.getElementById("mnemonic").value = Storj.generateEncryptionKey();
                             }
                         </script>
                         <input type="button" id="submit"class="btn btn-primary" value="Login" onclick="Login()">
