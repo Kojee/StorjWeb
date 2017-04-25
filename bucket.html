@@ -56,8 +56,21 @@
                         
                         function download(bucketId, fileId){
                             var file = storj.getFile(bucketId, fileId, function done(){
-                                file.getBlob(function cb(e, blob) {
-                                    saveAs(blob, file.name);
+                                file.getBlobUrl(function cb(e, url){
+                                    var xhr = new XMLHttpRequest();
+                                    xhr.open('GET', url, true);
+                                    xhr.responseType = 'arraybuffer';
+                                    xhr.onload = function(e) {
+                                        var arraybuffer = xhr.response; // not responseText
+                                        var a = window.document.createElement('a');
+                                        document.body.appendChild(a);
+                                        a.style = "display: none";
+                                        a.href = window.URL.createObjectURL(new Blob([arraybuffer], { type: file.mimetype }));
+                                        a.download = file.name;
+                                        a.click();
+                                    }
+                                    xhr.send();
+                                    
                                 });
                             });
                         }

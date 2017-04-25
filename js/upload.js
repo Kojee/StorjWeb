@@ -6,7 +6,7 @@ function upload(bucketId){
             email: localStorage.getItem("email"),
             password: localStorage.getItem("password")
         },
-        encryptionKey : Storj.generateEncryptionKey()
+        encryptionKey : localStorage.getItem("mnemonic")
     };
     
     var storj = new Storj(opts);
